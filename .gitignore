@@ -15,7 +15,7 @@ coverage
 # next.js
 .next/
 out/
-venv/
+.venv/
 # production
 build/
 

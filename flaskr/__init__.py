@@ -1,8 +1,7 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
-import psycopg2
 from . import db
 
 def create_app(test_config=None):
@@ -10,8 +9,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     CORS(app)
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SECRET_KEY='dev'
     )
 
     if test_config is None:
@@ -27,11 +25,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/upload')
+    @app.route('/upload', methods=['POST'])
     def hello():
+        ALLOWED_EXTENSIONS = {'pdf', 'docx'}
+        uploaded_file = request.files['resume']
+        if uploaded_file:
+            print('success')
         return 'Hello, World!'
-        db.init_db()
+    
+        #db.init_db()
 
     return app
 

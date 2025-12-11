@@ -17,9 +17,11 @@ export default function Button() {
       return
    }
     const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("resume",file);
     if (allowedTypes.includes(file.type)){
       try{ 
-        const response = await fetch('http://localhost:5000/upload', {method: "POST", body: file})
+        const response = await fetch('http://localhost:5000/upload', {method: "POST", body: formData })
         
       }
       catch (error)
