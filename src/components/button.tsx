@@ -22,7 +22,6 @@ export default function Button() {
     if (allowedTypes.includes(file.type)){
       try{ 
         const response = await fetch('http://localhost:5000/upload', {method: "POST", body: formData })
-        
       }
       catch (error)
       {
@@ -36,11 +35,11 @@ export default function Button() {
 
 
   return (
-    <>
-      <button onClick={handleClick}> Upload File</button>
+    <div className='flex justify-center'>
+      <button className='p-2 m-4 shadow-lg bg-zinc-600 rounded-md items-center'onClick={handleClick} > Upload File</button>
       <input type="file" accept=".docx, .pdf, .txt" style={{ display: 'none' }}  onChange={handleUpload} ref={uploadRef} ></input>
       {errorMessage ? <p> {errorMessage}</p> : null }
-    </>
+    </div>
 
   )
 }
