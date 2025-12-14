@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
-from . import db
+from . import db, groq_client
 
 
 
@@ -34,10 +34,7 @@ def create_app(test_config=None):
                  return jsonify({"Error": "Not Found"}), 404
 
             if check_file(uploaded_file.filename):
-                uploaded_file = secure_filename(uploaded_file.filename)
-                # TODO call llm
-
-                # allow user to download resume 
+                groq_client(uploaded_file)
                 return jsonify({"Success" : "File Uploaded"}), 200
 
     return app
